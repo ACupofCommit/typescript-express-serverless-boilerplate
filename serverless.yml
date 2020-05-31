@@ -1,0 +1,43 @@
+service:
+  name: serverless-example
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    packager: 'yarn'
+  serverless-offline:
+    useChildProcesses: true
+
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'local'}
+  region: ${env:AWS_DEFAULT_REGION,eu-west-1}
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 4
+  logRetentionInDays: 180
+
+functions:
+  hello:
+    handler: src/handler.index
+    events:
+      - http:
+          method: get
+          path: /
+      - http:
+          method: post
+          path: /{pathname+}
+      - http:
+          method: get
+          path: /{pathname+}
+      - http:
+          method: put
+          path: /{pathname+}
+      - http:
+          method: delete
+          path: /{pathname+}
+
