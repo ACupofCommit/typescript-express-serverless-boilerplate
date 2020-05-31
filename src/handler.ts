@@ -1,10 +1,10 @@
 'use strict'
 
-import * as awsServerlessExpress from  'aws-serverless-express'
-import { app } from './app'
-import { Context } from 'aws-lambda'
+import { createServer, proxy } from  'aws-serverless-express'
+import { APIGatewayProxyHandler } from 'aws-lambda'
+import app from './app'
 
-const server = awsServerlessExpress.createServer(app)
-export const index = (event, context: Context) => {
-  awsServerlessExpress.proxy(server, event, context)
+const server = createServer(app)
+export const index: APIGatewayProxyHandler = (event, context) => {
+  proxy(server, event, context)
 }
