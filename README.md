@@ -60,7 +60,10 @@ $ curl -XGET "http://localhost:3000/local/users/userA"
 ```
 
 ## Test
-TODO
+
+```
+$ yarn test
+```
 
 ## Deployment
 
