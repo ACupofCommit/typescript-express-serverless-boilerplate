@@ -4,13 +4,13 @@ service:
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-pseudo-parameters
 
 custom:
   webpack:
     packager: 'yarn'
   serverless-offline:
     useChildProcesses: true
-
 
 provider:
   name: aws
@@ -20,6 +20,20 @@ provider:
   memorySize: 128
   timeout: 4
   logRetentionInDays: 180
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      # Restrict our IAM role permissions to
+      # the specific table for the stage
+      Resource:
+        - "arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/ServerlessExample-UserActions"
 
 functions:
   hello:
