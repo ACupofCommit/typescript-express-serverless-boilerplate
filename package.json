@@ -9,7 +9,7 @@
     "tsc": "tsc --project tsconfig.json"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.1",
+    "@babel/core": "^7.10.2",
     "@babel/node": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
